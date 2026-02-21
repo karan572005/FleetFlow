@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- TRIP LIST VIEW -->
+    <record id="view_trip_list" model="ir.ui.view">
+        <field name="name">fleetflow.trip.list</field>
+        <field name="model">fleetflow.trip</field>
+        <field name="arch" type="xml">
+            <list string="Trips"
+                  decoration-danger="capacity_warning == True"
+                  decoration-success="state == 'completed'"
+                  decoration-bf="state == 'dispatched'">
+                <field name="name" string="Trip Ref"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="origin"/>
+                <field name="destination"/>
+                <field name="cargo_weight" string="Cargo (kg)"/>
+                <field name="vehicle_capacity" string="Max Cap (kg)" optional="show"/>
+                <field name="date_planned"/>
+                <field name="distance_km" optional="show"/>
+                <field name="revenue" optional="show"/>
+                <field name="state"/>
+                <field name="capacity_warning" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- TRIP KANBAN VIEW -->
+    <record id="view_trip_kanban" model="ir.ui.view">
+        <field name="name">fleetflow.trip.kanban</field>
+        <field name="model">fleetflow.trip</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="origin"/>
+                <field name="destination"/>
+                <field name="cargo_weight"/>
+                <field name="state"/>
+                <field name="capacity_warning"/>
+                <field name="date_planned"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_content">
+                            <div class="o_kanban_record_top">
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>Vehicle: <field name="vehicle_id"/></div>
+                                <div>Driver: <field name="driver_id"/></div>
+                                <div><field name="origin"/> to <field name="destination"/></div>
+                                <div>Cargo: <field name="cargo_weight"/> kg</div>
+                                <div class="text-muted">Date: <field name="date_planned"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- TRIP FORM VIEW -->
+    <record id="view_trip_form" model="ir.ui.view">
+        <field name="name">fleetflow.trip.form</field>
+        <field name="model">fleetflow.trip</field>
+        <field name="arch" type="xml">
+            <form string="Trip">
+                <header>
+                    <button name="action_dispatch" string="Dispatch Trip"
+                            type="object" class="btn-primary"
+                            invisible="state != 'draft'"
+                            confirm="Confirm dispatch? Vehicle and driver will be set to ON TRIP."/>
+                    <button name="action_complete" string="Mark Completed"
+                            type="object"
+                            invisible="state != 'dispatched'"
+                            confirm="Mark this trip as completed?"/>
+                    <button name="action_cancel" string="Cancel Trip"
+                            type="object"
+                            invisible="state in ('completed', 'cancelled')"/>
+                    <button name="action_reset_to_draft" string="Re-open"
+                            type="object"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,dispatched,completed"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not capacity_warning">
+                        <strong>WARNING: Cargo Weight Exceeds Vehicle Capacity!</strong>
+                        Reduce cargo or select a higher-capacity vehicle.
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Assignment">
+                            <field name="vehicle_id"
+                                   domain="[('state','=','available')]"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'draft'"/>
+                            <field name="vehicle_capacity" readonly="1"
+                                   string="Vehicle Max Capacity (kg)"/>
+                            <field name="driver_id"
+                                   domain="[('status','=','on_duty'),('license_status','!=','expired')]"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Route">
+                            <field name="origin" readonly="state != 'draft'"/>
+                            <field name="destination" readonly="state != 'draft'"/>
+                            <field name="date_planned" readonly="state != 'draft'"/>
+                            <field name="date_completed" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Cargo">
+                            <field name="cargo_description"/>
+                            <field name="cargo_weight" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Odometer">
+                            <field name="odometer_start"
+                                   readonly="state not in ('draft', 'dispatched')"/>
+                            <field name="odometer_end"
+                                   readonly="state != 'dispatched'"/>
+                            <field name="distance_km" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Revenue">
+                            <field name="revenue"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- TRIP SEARCH VIEW -->
+    <record id="view_trip_search" model="ir.ui.view">
+        <field name="name">fleetflow.trip.search</field>
+        <field name="model">fleetflow.trip</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Trip Ref"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="origin"/>
+                <field name="destination"/>
+                <separator/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="dispatched" string="Dispatched" domain="[('state','=','dispatched')]"/>
+                <filter name="completed" string="Completed" domain="[('state','=','completed')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('state','=','cancelled')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_vehicle" string="Vehicle"
+                            context="{'group_by':'vehicle_id'}"/>
+                    <filter name="group_driver" string="Driver"
+                            context="{'group_by':'driver_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by':'state'}"/>
+                    <filter name="group_date" string="Date"
+                            context="{'group_by':'date_planned:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_trip" model="ir.actions.act_window">
+        <field name="name">Trip Dispatcher</field>
+        <field name="res_model">fleetflow.trip</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_trip_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first trip!
+            </p>
+        </field>
+    </record>
+
+</odoo>

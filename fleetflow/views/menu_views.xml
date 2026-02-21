@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         FLEETFLOW MENU STRUCTURE
+         Root → Fleet → People → Finance → Analytics
+    ══════════════════════════════════════════════════════════════ -->
+
+    <!-- ROOT MENU (shows in app switcher) -->
+    <menuitem id="menu_fleetflow_root"
+              name="FleetFlow"
+              web_icon="fleetflow,static/description/icon.png"
+              sequence="50"/>
+
+    <!-- ── 1. COMMAND CENTER (Dashboard) ─────────────────────── -->
+    <menuitem id="menu_dashboard"
+              name="Command Center"
+              parent="menu_fleetflow_root"
+              action="action_dashboard"
+              sequence="10"/>
+
+    <!-- ── 2. FLEET MANAGEMENT ───────────────────────────────── -->
+    <menuitem id="menu_fleet"
+              name="Fleet"
+              parent="menu_fleetflow_root"
+              sequence="20"/>
+
+    <menuitem id="menu_vehicles"
+              name="Vehicle Registry"
+              parent="menu_fleet"
+              action="action_vehicle"
+              sequence="21"/>
+
+    <menuitem id="menu_trips"
+              name="Trip Dispatcher"
+              parent="menu_fleet"
+              action="action_trip"
+              sequence="22"/>
+
+    <menuitem id="menu_maintenance"
+              name="Maintenance Logs"
+              parent="menu_fleet"
+              action="action_maintenance"
+              sequence="23"/>
+
+    <!-- ── 3. PEOPLE ─────────────────────────────────────────── -->
+    <menuitem id="menu_people"
+              name="People"
+              parent="menu_fleetflow_root"
+              sequence="30"/>
+
+    <menuitem id="menu_drivers"
+              name="Driver Profiles"
+              parent="menu_people"
+              action="action_driver"
+              sequence="31"/>
+
+    <!-- ── 4. FINANCE ────────────────────────────────────────── -->
+    <menuitem id="menu_finance"
+              name="Finance"
+              parent="menu_fleetflow_root"
+              sequence="40"/>
+
+    <menuitem id="menu_expenses"
+              name="Fuel &amp; Expenses"
+              parent="menu_finance"
+              action="action_expense"
+              sequence="41"/>
+
+    <!-- ── 5. ANALYTICS ──────────────────────────────────────── -->
+    <menuitem id="menu_analytics"
+              name="Analytics"
+              parent="menu_fleetflow_root"
+              sequence="50"/>
+
+    <menuitem id="menu_analytics_fleet"
+              name="Fleet Performance"
+              parent="menu_analytics"
+              action="action_analytics_vehicle"
+              sequence="51"/>
+
+    <menuitem id="menu_analytics_trips"
+              name="Trip Analytics"
+              parent="menu_analytics"
+              action="action_analytics_trip"
+              sequence="52"/>
+
+    <!-- ── 6. CONFIGURATION ──────────────────────────────────── -->
+    <menuitem id="menu_config"
+              name="Configuration"
+              parent="menu_fleetflow_root"
+              sequence="90"
+              groups="fleetflow.group_fleet_manager"/>
+
+    <menuitem id="menu_config_license_categories"
+              name="License Categories"
+              parent="menu_config"
+              action="action_license_category"
+              sequence="91"/>
+
+</odoo>

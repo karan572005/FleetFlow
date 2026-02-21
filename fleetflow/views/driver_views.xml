@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- DRIVER LIST VIEW -->
+    <record id="view_driver_list" model="ir.ui.view">
+        <field name="name">fleetflow.driver.list</field>
+        <field name="model">fleetflow.driver</field>
+        <field name="arch" type="xml">
+            <list string="Driver Profiles"
+                  decoration-danger="license_status == 'expired'"
+                  decoration-bf="license_status == 'expiring'">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="license_number"/>
+                <field name="license_expiry_date"/>
+                <field name="license_status"/>
+                <field name="status"/>
+                <field name="safety_score"/>
+                <field name="completion_rate" string="Completion %" optional="show"/>
+                <field name="trips_completed" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- DRIVER FORM VIEW -->
+    <record id="view_driver_form" model="ir.ui.view">
+        <field name="name">fleetflow.driver.form</field>
+        <field name="model">fleetflow.driver</field>
+        <field name="arch" type="xml">
+            <form string="Driver Profile">
+                <header>
+                    <button name="action_set_on_duty" string="Set On Duty"
+                            type="object" class="btn-primary"
+                            invisible="status == 'on_duty'"/>
+                    <button name="action_set_off_duty" string="Set Off Duty"
+                            type="object"
+                            invisible="status == 'off_duty'"/>
+                    <button name="action_suspend" string="Suspend Driver"
+                            type="object"
+                            invisible="status == 'suspended'"
+                            confirm="Are you sure you want to suspend this driver?"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="off_duty,on_duty"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="license_status != 'expired'">
+                        <strong>License EXPIRED!</strong>
+                        This driver cannot be assigned to any trip until their license is renewed.
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="license_status != 'expiring'">
+                        <strong>License Expiring Soon!</strong>
+                        Please renew before the expiry date.
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Driver Full Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Personal Info">
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="employee_id"/>
+                        </group>
+                        <group string="License">
+                            <field name="license_number"/>
+                            <field name="license_expiry_date"/>
+                            <field name="license_status" readonly="1"/>
+                            <field name="license_categories" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Safety and Performance">
+                            <group>
+                                <group string="Safety Score">
+                                    <field name="safety_score"
+                                           widget="progressbar"
+                                           options="{'max_value': 100, 'editable': true}"/>
+                                </group>
+                                <group string="Trip Statistics">
+                                    <field name="trips_total" readonly="1"/>
+                                    <field name="trips_completed" readonly="1"/>
+                                    <field name="completion_rate" readonly="1"
+                                           string="Completion Rate (%)"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Trip History">
+                            <field name="trip_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="vehicle_id"/>
+                                    <field name="origin"/>
+                                    <field name="destination"/>
+                                    <field name="date_planned"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Internal notes, violations, remarks..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- DRIVER SEARCH VIEW -->
+    <record id="view_driver_search" model="ir.ui.view">
+        <field name="name">fleetflow.driver.search</field>
+        <field name="model">fleetflow.driver</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="license_number"/>
+                <separator/>
+                <filter name="on_duty" string="On Duty"
+                        domain="[('status','=','on_duty')]"/>
+                <filter name="off_duty" string="Off Duty"
+                        domain="[('status','=','off_duty')]"/>
+                <filter name="suspended" string="Suspended"
+                        domain="[('status','=','suspended')]"/>
+                <separator/>
+                <filter name="license_valid" string="License Valid"
+                        domain="[('license_status','=','valid')]"/>
+                <filter name="license_expiring" string="License Expiring"
+                        domain="[('license_status','=','expiring')]"/>
+                <filter name="license_expired" string="License Expired"
+                        domain="[('license_status','=','expired')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_driver" model="ir.actions.act_window">
+        <field name="name">Driver Profiles</field>
+        <field name="res_model">fleetflow.driver</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_driver_search"/>
+    </record>
+
+</odoo>

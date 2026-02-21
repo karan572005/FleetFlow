@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- VEHICLE PIVOT -->
+    <record id="view_vehicle_pivot" model="ir.ui.view">
+        <field name="name">fleetflow.vehicle.pivot</field>
+        <field name="model">fleetflow.vehicle</field>
+        <field name="arch" type="xml">
+            <pivot string="Vehicle Analytics">
+                <field name="vehicle_type" type="row"/>
+                <field name="total_operational_cost" type="measure"/>
+                <field name="total_revenue" type="measure"/>
+                <field name="total_km_driven" type="measure"/>
+                <field name="fuel_efficiency" type="measure"/>
+                <field name="vehicle_roi" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- VEHICLE GRAPH -->
+    <record id="view_vehicle_graph" model="ir.ui.view">
+        <field name="name">fleetflow.vehicle.graph</field>
+        <field name="model">fleetflow.vehicle</field>
+        <field name="arch" type="xml">
+            <graph string="Fleet Analytics" type="bar">
+                <field name="name" type="row"/>
+                <field name="total_operational_cost" type="measure"/>
+                <field name="total_revenue" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- TRIP PIVOT -->
+    <record id="view_trip_pivot" model="ir.ui.view">
+        <field name="name">fleetflow.trip.pivot</field>
+        <field name="model">fleetflow.trip</field>
+        <field name="arch" type="xml">
+            <pivot string="Trip Analytics">
+                <field name="vehicle_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="cargo_weight" type="measure"/>
+                <field name="distance_km" type="measure"/>
+                <field name="revenue" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- TRIP GRAPH -->
+    <record id="view_trip_graph" model="ir.ui.view">
+        <field name="name">fleetflow.trip.graph</field>
+        <field name="model">fleetflow.trip</field>
+        <field name="arch" type="xml">
+            <graph string="Trip Revenue Trend" type="bar">
+                <field name="vehicle_id" type="row"/>
+                <field name="revenue" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ACTIONS -->
+    <record id="action_analytics_vehicle" model="ir.actions.act_window">
+        <field name="name">Fleet Analytics</field>
+        <field name="res_model">fleetflow.vehicle</field>
+        <field name="view_mode">pivot,graph,list</field>
+    </record>
+
+    <record id="action_analytics_trip" model="ir.actions.act_window">
+        <field name="name">Trip Analytics</field>
+        <field name="res_model">fleetflow.trip</field>
+        <field name="view_mode">pivot,graph,list</field>
+    </record>
+
+</odoo>

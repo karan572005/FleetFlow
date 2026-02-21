@@ -1,0 +1,27 @@
+/* FleetFlow — Custom Odoo 18 Stylesheet */
+
+/* Status pill colors for vehicle state */
+.o_field_widget .o_status.available { color: #22c55e; }
+.o_field_widget .o_status.on_trip   { color: #3b82f6; }
+.o_field_widget .o_status.in_shop   { color: #ef4444; }
+.o_field_widget .o_status.retired   { color: #9ca3af; }
+
+/* Danger highlight for overloaded trips in list */
+.o_data_row.o_decoration_danger {
+    background-color: rgba(239, 68, 68, 0.06) !important;
+}
+.o_data_row.o_decoration_danger td {
+    color: #ef4444;
+}
+
+/* FleetFlow header branding */
+.o_main_navbar .o_menu_brand {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Capacity warning inline in trip form */
+.fleetflow_capacity_warn {
+    color: #ef4444;
+    font-weight: 600;
+}

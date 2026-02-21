@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- EXPENSE LIST VIEW -->
+    <record id="view_expense_list" model="ir.ui.view">
+        <field name="name">fleetflow.expense.list</field>
+        <field name="model">fleetflow.expense</field>
+        <field name="arch" type="xml">
+            <list string="Fuel and Expenses">
+                <field name="date"/>
+                <field name="vehicle_id"/>
+                <field name="trip_id" optional="show"/>
+                <field name="expense_type"/>
+                <field name="liters"/>
+                <field name="price_per_liter"/>
+                <field name="cost" string="Total Cost"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- EXPENSE FORM VIEW -->
+    <record id="view_expense_form" model="ir.ui.view">
+        <field name="name">fleetflow.expense.form</field>
+        <field name="model">fleetflow.expense</field>
+        <field name="arch" type="xml">
+            <form string="Fuel and Expense Entry">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Description"/></h1>
+                    </div>
+                    <group>
+                        <group string="Expense Info">
+                            <field name="vehicle_id" options="{'no_create': True}"/>
+                            <field name="trip_id"
+                                   domain="[('vehicle_id','=',vehicle_id)]"
+                                   options="{'no_create': True}"/>
+                            <field name="expense_type"/>
+                            <field name="date"/>
+                        </group>
+                        <group string="Fuel Details" invisible="expense_type != 'fuel'">
+                            <field name="liters"/>
+                            <field name="price_per_liter"/>
+                            <field name="cost" readonly="1" string="Auto-calculated Cost"/>
+                        </group>
+                        <group string="Cost" invisible="expense_type == 'fuel'">
+                            <field name="cost" string="Cost"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_expense" model="ir.actions.act_window">
+        <field name="name">Fuel and Expenses</field>
+        <field name="res_model">fleetflow.expense</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

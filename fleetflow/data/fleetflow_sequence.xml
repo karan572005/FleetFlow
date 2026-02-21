@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Trip Reference Sequence: TRP/2026/00001 -->
+        <record id="seq_fleetflow_trip" model="ir.sequence">
+            <field name="name">FleetFlow Trip</field>
+            <field name="code">fleetflow.trip</field>
+            <field name="prefix">TRP/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="use_date_range">True</field>
+        </record>
+
+        <!-- Seed License Categories -->
+        <record id="license_cat_truck" model="fleetflow.license.category">
+            <field name="name">Heavy Vehicle (Truck)</field>
+            <field name="vehicle_type">truck</field>
+        </record>
+        <record id="license_cat_van" model="fleetflow.license.category">
+            <field name="name">Light Motor Vehicle (Van)</field>
+            <field name="vehicle_type">van</field>
+        </record>
+        <record id="license_cat_bike" model="fleetflow.license.category">
+            <field name="name">Two-Wheeler (Bike)</field>
+            <field name="vehicle_type">bike</field>
+        </record>
+
+    </data>
+</odoo>

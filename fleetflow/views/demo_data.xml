@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+    <!-- ══════════════════════════════════════════════════════════
+         VEHICLES
+    ══════════════════════════════════════════════════════════ -->
+    <record id="vehicle_van_05" model="fleetflow.vehicle">
+        <field name="name">Van-05</field>
+        <field name="license_plate">GJ-01-AB-0005</field>
+        <field name="vehicle_type">van</field>
+        <field name="max_load_capacity">500</field>
+        <field name="odometer">12000</field>
+        <field name="acquisition_cost">650000</field>
+        <field name="region">Rajkot</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="vehicle_van_08" model="fleetflow.vehicle">
+        <field name="name">Van-08</field>
+        <field name="license_plate">GJ-01-AB-0008</field>
+        <field name="vehicle_type">van</field>
+        <field name="max_load_capacity">600</field>
+        <field name="odometer">34000</field>
+        <field name="acquisition_cost">700000</field>
+        <field name="region">Ahmedabad</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="vehicle_truck_02" model="fleetflow.vehicle">
+        <field name="name">Truck-02</field>
+        <field name="license_plate">GJ-03-CD-0002</field>
+        <field name="vehicle_type">truck</field>
+        <field name="max_load_capacity">5000</field>
+        <field name="odometer">87000</field>
+        <field name="acquisition_cost">2500000</field>
+        <field name="region">Surat</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="vehicle_truck_07" model="fleetflow.vehicle">
+        <field name="name">Truck-07</field>
+        <field name="license_plate">GJ-03-CD-0007</field>
+        <field name="vehicle_type">truck</field>
+        <field name="max_load_capacity">8000</field>
+        <field name="odometer">120000</field>
+        <field name="acquisition_cost">3200000</field>
+        <field name="region">Vadodara</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="vehicle_bike_03" model="fleetflow.vehicle">
+        <field name="name">Bike-03</field>
+        <field name="license_plate">GJ-01-EF-0003</field>
+        <field name="vehicle_type">bike</field>
+        <field name="max_load_capacity">80</field>
+        <field name="odometer">5500</field>
+        <field name="acquisition_cost">95000</field>
+        <field name="region">Rajkot</field>
+        <field name="state">available</field>
+    </record>
+
+    <record id="vehicle_van_01" model="fleetflow.vehicle">
+        <field name="name">Van-01</field>
+        <field name="license_plate">GJ-01-AB-0001</field>
+        <field name="vehicle_type">van</field>
+        <field name="max_load_capacity">500</field>
+        <field name="odometer">62000</field>
+        <field name="acquisition_cost">620000</field>
+        <field name="region">Rajkot</field>
+        <field name="state">available</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════
+         LICENSE CATEGORIES (reference existing seed data)
+    ══════════════════════════════════════════════════════════ -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         DRIVERS
+    ══════════════════════════════════════════════════════════ -->
+    <record id="driver_alex" model="fleetflow.driver">
+        <field name="name">Alex Kumar</field>
+        <field name="phone">9876543210</field>
+        <field name="email">alex.kumar@fleetflow.com</field>
+        <field name="license_number">GJ-DL-2021-001</field>
+        <field name="license_expiry_date">2027-06-30</field>
+        <field name="status">on_duty</field>
+        <field name="safety_score">92.0</field>
+        <field name="notes">Senior driver. 5 years experience.</field>
+    </record>
+
+    <record id="driver_priya" model="fleetflow.driver">
+        <field name="name">Priya Shah</field>
+        <field name="phone">9876500001</field>
+        <field name="email">priya.shah@fleetflow.com</field>
+        <field name="license_number">GJ-DL-2020-002</field>
+        <field name="license_expiry_date">2026-03-15</field>
+        <field name="status">on_duty</field>
+        <field name="safety_score">88.5</field>
+        <field name="notes">Licensed for Truck and Van.</field>
+    </record>
+
+    <record id="driver_rahul" model="fleetflow.driver">
+        <field name="name">Rahul Patel</field>
+        <field name="phone">9123456789</field>
+        <field name="email">rahul.patel@fleetflow.com</field>
+        <field name="license_number">GJ-DL-2022-003</field>
+        <field name="license_expiry_date">2028-12-31</field>
+        <field name="status">on_duty</field>
+        <field name="safety_score">95.0</field>
+        <field name="notes">Bike specialist for city deliveries.</field>
+    </record>
+
+    <record id="driver_meena" model="fleetflow.driver">
+        <field name="name">Meena Joshi</field>
+        <field name="phone">9988776655</field>
+        <field name="email">meena.joshi@fleetflow.com</field>
+        <field name="license_number">GJ-DL-2019-004</field>
+        <field name="license_expiry_date">2025-01-10</field>
+        <field name="status">off_duty</field>
+        <field name="safety_score">70.0</field>
+        <field name="notes">LICENSE EXPIRED — renewal pending.</field>
+    </record>
+
+    <record id="driver_suresh" model="fleetflow.driver">
+        <field name="name">Suresh Verma</field>
+        <field name="phone">9000011111</field>
+        <field name="email">suresh.verma@fleetflow.com</field>
+        <field name="license_number">GJ-DL-2023-005</field>
+        <field name="license_expiry_date">2026-02-28</field>
+        <field name="status">on_duty</field>
+        <field name="safety_score">85.0</field>
+        <field name="notes">Expiring soon — renew by Feb 2026.</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════
+         COMPLETED TRIPS (for analytics data)
+    ══════════════════════════════════════════════════════════ -->
+    <record id="trip_001" model="fleetflow.trip">
+        <field name="vehicle_id" ref="vehicle_van_05"/>
+        <field name="driver_id" ref="driver_alex"/>
+        <field name="origin">Rajkot</field>
+        <field name="destination">Ahmedabad</field>
+        <field name="cargo_description">Electronics</field>
+        <field name="cargo_weight">450</field>
+        <field name="date_planned">2026-02-10</field>
+        <field name="date_completed">2026-02-10</field>
+        <field name="odometer_start">12000</field>
+        <field name="odometer_end">12220</field>
+        <field name="distance_km">220</field>
+        <field name="revenue">8500</field>
+        <field name="state">completed</field>
+    </record>
+
+    <record id="trip_002" model="fleetflow.trip">
+        <field name="vehicle_id" ref="vehicle_truck_02"/>
+        <field name="driver_id" ref="driver_priya"/>
+        <field name="origin">Surat</field>
+        <field name="destination">Vadodara</field>
+        <field name="cargo_description">Textiles</field>
+        <field name="cargo_weight">3200</field>
+        <field name="date_planned">2026-02-12</field>
+        <field name="date_completed">2026-02-12</field>
+        <field name="odometer_start">87000</field>
+        <field name="odometer_end">87150</field>
+        <field name="distance_km">150</field>
+        <field name="revenue">15000</field>
+        <field name="state">completed</field>
+    </record>
+
+    <record id="trip_003" model="fleetflow.trip">
+        <field name="vehicle_id" ref="vehicle_bike_03"/>
+        <field name="driver_id" ref="driver_rahul"/>
+        <field name="origin">Rajkot City</field>
+        <field name="destination">Rajkot Airport</field>
+        <field name="cargo_description">Documents</field>
+        <field name="cargo_weight">5</field>
+        <field name="date_planned">2026-02-14</field>
+        <field name="date_completed">2026-02-14</field>
+        <field name="odometer_start">5500</field>
+        <field name="odometer_end">5525</field>
+        <field name="distance_km">25</field>
+        <field name="revenue">500</field>
+        <field name="state">completed</field>
+    </record>
+
+    <record id="trip_004" model="fleetflow.trip">
+        <field name="vehicle_id" ref="vehicle_van_08"/>
+        <field name="driver_id" ref="driver_alex"/>
+        <field name="origin">Ahmedabad</field>
+        <field name="destination">Surat</field>
+        <field name="cargo_description">Pharma goods</field>
+        <field name="cargo_weight">380</field>
+        <field name="date_planned">2026-02-18</field>
+        <field name="date_completed">2026-02-18</field>
+        <field name="odometer_start">34000</field>
+        <field name="odometer_end">34270</field>
+        <field name="distance_km">270</field>
+        <field name="revenue">12000</field>
+        <field name="state">completed</field>
+    </record>
+
+    <!-- CANCELLED TRIP (shows in analytics) -->
+    <record id="trip_005" model="fleetflow.trip">
+        <field name="vehicle_id" ref="vehicle_truck_07"/>
+        <field name="driver_id" ref="driver_suresh"/>
+        <field name="origin">Vadodara</field>
+        <field name="destination">Rajkot</field>
+        <field name="cargo_description">Steel rods</field>
+        <field name="cargo_weight">900</field>
+        <field name="date_planned">2026-02-20</field>
+        <field name="revenue">0</field>
+        <field name="state">cancelled</field>
+    </record>
+
+    <!-- DRAFT TRIP (pending dispatch) -->
+    <record id="trip_006" model="fleetflow.trip">
+        <field name="vehicle_id" ref="vehicle_van_01"/>
+        <field name="driver_id" ref="driver_rahul"/>
+        <field name="origin">Rajkot</field>
+        <field name="destination">Morbi</field>
+        <field name="cargo_description">Ceramic tiles</field>
+        <field name="cargo_weight">200</field>
+        <field name="date_planned">2026-02-21</field>
+        <field name="revenue">4000</field>
+        <field name="state">draft</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════
+         MAINTENANCE LOGS
+    ══════════════════════════════════════════════════════════ -->
+    <record id="maint_001" model="fleetflow.maintenance">
+        <field name="name">Oil Change</field>
+        <field name="vehicle_id" ref="vehicle_van_08"/>
+        <field name="maintenance_type">oil_change</field>
+        <field name="date">2026-02-15</field>
+        <field name="date_completed">2026-02-15</field>
+        <field name="cost">1200</field>
+        <field name="vendor">Rajkot Auto Works</field>
+        <field name="odometer_at_service">34000</field>
+        <field name="notes">Synthetic oil used. Next change at 38000 km.</field>
+        <field name="state">done</field>
+    </record>
+
+    <record id="maint_002" model="fleetflow.maintenance">
+        <field name="name">Tyre Replacement - Front</field>
+        <field name="vehicle_id" ref="vehicle_truck_02"/>
+        <field name="maintenance_type">tyre</field>
+        <field name="date">2026-02-19</field>
+        <field name="date_completed">2026-02-19</field>
+        <field name="cost">8500</field>
+        <field name="vendor">Gujarat Tyre House</field>
+        <field name="odometer_at_service">87000</field>
+        <field name="notes">Both front tyres replaced. MRF brand.</field>
+        <field name="state">done</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════
+         FUEL AND EXPENSE LOGS
+    ══════════════════════════════════════════════════════════ -->
+    <record id="fuel_001" model="fleetflow.expense">
+        <field name="name">Fuel Fill - Van-05</field>
+        <field name="vehicle_id" ref="vehicle_van_05"/>
+        <field name="trip_id" ref="trip_001"/>
+        <field name="expense_type">fuel</field>
+        <field name="date">2026-02-10</field>
+        <field name="liters">22</field>
+        <field name="price_per_liter">96.5</field>
+    </record>
+
+    <record id="fuel_002" model="fleetflow.expense">
+        <field name="name">Fuel Fill - Truck-02</field>
+        <field name="vehicle_id" ref="vehicle_truck_02"/>
+        <field name="trip_id" ref="trip_002"/>
+        <field name="expense_type">fuel</field>
+        <field name="date">2026-02-12</field>
+        <field name="liters">55</field>
+        <field name="price_per_liter">94.0</field>
+    </record>
+
+    <record id="fuel_003" model="fleetflow.expense">
+        <field name="name">Fuel Fill - Van-08</field>
+        <field name="vehicle_id" ref="vehicle_van_08"/>
+        <field name="trip_id" ref="trip_004"/>
+        <field name="expense_type">fuel</field>
+        <field name="date">2026-02-18</field>
+        <field name="liters">28</field>
+        <field name="price_per_liter">96.5</field>
+    </record>
+
+    <record id="toll_001" model="fleetflow.expense">
+        <field name="name">Toll - Ahmedabad Highway</field>
+        <field name="vehicle_id" ref="vehicle_van_08"/>
+        <field name="trip_id" ref="trip_004"/>
+        <field name="expense_type">toll</field>
+        <field name="date">2026-02-18</field>
+        <field name="cost">150</field>
+        <field name="notes">NH-48 toll plaza</field>
+    </record>
+
+    <record id="toll_002" model="fleetflow.expense">
+        <field name="name">Toll - Surat Expressway</field>
+        <field name="vehicle_id" ref="vehicle_truck_02"/>
+        <field name="trip_id" ref="trip_002"/>
+        <field name="expense_type">toll</field>
+        <field name="date">2026-02-12</field>
+        <field name="cost">320</field>
+        <field name="notes">Surat-Vadodara expressway</field>
+    </record>
+
+</data>
+</odoo>

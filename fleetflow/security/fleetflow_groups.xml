@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── MODULE CATEGORY ───────────────────────────────────────── -->
+    <record id="module_category_fleetflow" model="ir.module.category">
+        <field name="name">FleetFlow</field>
+        <field name="description">FleetFlow Fleet &amp; Logistics Management</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- ── GROUPS (RBAC) ─────────────────────────────────────────── -->
+
+    <!-- Fleet Manager: Full access to all records -->
+    <record id="group_fleet_manager" model="res.groups">
+        <field name="name">Fleet Manager</field>
+        <field name="category_id" ref="module_category_fleetflow"/>
+        <field name="comment">
+            Full access: vehicles, trips, maintenance, drivers, expenses, analytics.
+        </field>
+    </record>
+
+    <!-- Dispatcher: Create/edit trips; view vehicles &amp; drivers -->
+    <record id="group_dispatcher" model="res.groups">
+        <field name="name">Dispatcher</field>
+        <field name="category_id" ref="module_category_fleetflow"/>
+        <field name="comment">
+            Can create and manage trips. Cannot edit vehicle registry or driver profiles.
+        </field>
+    </record>
+
+    <!-- Safety Officer: Read/write drivers; read-only vehicles &amp; trips -->
+    <record id="group_safety_officer" model="res.groups">
+        <field name="name">Safety Officer</field>
+        <field name="category_id" ref="module_category_fleetflow"/>
+        <field name="comment">
+            Can manage driver profiles and safety scores. Read-only on vehicles and trips.
+        </field>
+    </record>
+
+    <!-- Financial Analyst: Read-only on expenses and analytics -->
+    <record id="group_financial_analyst" model="res.groups">
+        <field name="name">Financial Analyst</field>
+        <field name="category_id" ref="module_category_fleetflow"/>
+        <field name="comment">
+            Read access to expenses, fuel logs, and analytics reports.
+        </field>
+    </record>
+
+</odoo>

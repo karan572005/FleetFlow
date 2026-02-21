@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- COMMAND CENTER DASHBOARD -->
+    <record id="view_dashboard" model="ir.ui.view">
+        <field name="name">fleetflow.dashboard</field>
+        <field name="model">fleetflow.vehicle</field>
+        <field name="arch" type="xml">
+            <list string="Command Center - Fleet Overview"
+                  decoration-success="state == 'available'"
+                  decoration-bf="state == 'on_trip'"
+                  decoration-danger="state == 'in_shop'">
+                <field name="name"/>
+                <field name="vehicle_type"/>
+                <field name="license_plate"/>
+                <field name="max_load_capacity" string="Capacity (kg)"/>
+                <field name="odometer"/>
+                <field name="region"/>
+                <field name="state"/>
+                <field name="total_operational_cost" string="Op. Cost" optional="show"/>
+                <field name="fuel_efficiency" string="Efficiency (km/L)" optional="show"/>
+                <field name="vehicle_roi" string="ROI %" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_dashboard" model="ir.actions.act_window">
+        <field name="name">Command Center</field>
+        <field name="res_model">fleetflow.vehicle</field>
+        <field name="view_mode">list,kanban</field>
+        <field name="view_id" ref="view_dashboard"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Welcome to FleetFlow Command Center!
+            </p>
+            <p>Start by adding vehicles to your fleet registry.</p>
+        </field>
+    </record>
+
+</odoo>
